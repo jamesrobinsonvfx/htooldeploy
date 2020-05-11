@@ -17,10 +17,11 @@ def log(verbosity):
     :type verbosity: int
     """
     logger = logging.getLogger("htooldeploy")
-    logger.setLevel(LOG_LEVELS[verbosity])
+    logger.setLevel(logging.DEBUG)
 
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(logging.Formatter("%(message)s"))
+    console_handler.setLevel(LOG_LEVELS[verbosity])
     logger.addHandler(console_handler)
 
     log_dir = "/tmp/htooldeploy/"
