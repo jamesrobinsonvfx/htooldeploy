@@ -113,7 +113,7 @@ class HTool(object):
             success = self._add_json_package()
         else:
             logger.info("Installing {0}".format(self.tool_name()))
-            success = self.copy_source_to_target()
+            success = self._copy_source_to_target()
         return success
 
     @property
@@ -217,7 +217,7 @@ class HTool(object):
 
         return version_str
 
-    def copy_source_to_target(self):
+    def _copy_source_to_target(self):
         """Copy dirctories in the repo's ``source/`` to the installation
         target.
 
