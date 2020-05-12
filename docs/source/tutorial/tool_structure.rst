@@ -1,10 +1,10 @@
-Tool Structure
-==============
+Test Tool Structure
+===================
 Inside the ``Examples`` directory, there is a test tool repo structure.
-We will use it in the following tutorial to explain tool structure and how to
+We will use it in this tutorial to explain tool structure and how to
 install quickly using ``htooldeploy``.
 
-The **Test Tool** hierarchy is as follows::
+The :ref:`Test Tool` hierarchy is as follows::
 
     test_tool/
         _version
@@ -44,4 +44,18 @@ the following (whitespace/tabbing is flexible, as long as it's close).
 .. note::
     This string can actually be in any file in the root directory.
     ``htooldeploy`` will scan all root level files for this string and use the
-    first one it finds.
+    first one it finds. See :meth:`~htooldeploy.htool.HTool.tool_version`
+
+Tools
+^^^^^
+
+If we look at the **Type Properties** of the :ref:`Test Tool` hda, we can see that
+it depends on some external Python library for its Event Handler scripts.
+
+.. image:: images/typeproperties_oncreated.png
+   :alt: Type Properties, OnCreated script
+
+Same goes for the shelf tools
+
+.. image:: images/shelf_tool_script.png
+   :alt: Shelf tool script
