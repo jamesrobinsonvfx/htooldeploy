@@ -1,5 +1,5 @@
-Welcome to Houdini Tool Deploy's documentation!
-===============================================
+Houdini Tool Deploy's 0.4.0
+===========================
 
 .. toctree::
    :maxdepth: 2
