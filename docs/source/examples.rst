@@ -18,7 +18,7 @@ Test an Installation
 ::
 
     cd project_folder
-    htooldeploy -v 3 --develop ~/dev/test_tool .
+    htooldeploy -v 3 --dry-run ~/dev/test_tool .
 
 Install and Remove Source
 *************************
