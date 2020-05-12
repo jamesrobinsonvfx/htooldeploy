@@ -279,10 +279,11 @@ class HTool(object):
         target_path = self.target_path()
 
         package_name = "{0}.json".format(self.tool_name())
-        if self.tool_version():
+        tool_version = self.tool_version()
+        if tool_version:
             package_name = "{0}-{1}.json".format(
                 self.tool_name(),
-                self.tool_version()
+                tool_version
             )
         package_file = os.path.join(target_path, package_name)
         if os.path.isfile(package_file) and not self.force:
