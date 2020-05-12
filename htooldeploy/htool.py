@@ -15,6 +15,12 @@ Site-Structured?
 .. note::
     This format would work well even with simple otls. Each one would
     have a docs page...or actually just a help/ in the source/ folder.
+
+.. seealso::
+    `Houdini Packages <https://www.sidefx.com/docs/houdini/ref/
+    plugins.html>`_ &
+    `Configuring Houdini <https://www.sidefx.com/docs/houdini/basics/
+    config.html>`_
 """
 import json
 import logging
@@ -35,7 +41,7 @@ logger = logging.getLogger("htooldeploy")
 
 
 class HTool(object):
-    """A basic tool repo object, capable of verifying and installing
+    """A basic Houdini Tool object, capable of verifying and installing
     itself.
     """
 
