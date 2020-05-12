@@ -1,6 +1,9 @@
 Overview
 ========
 
+What does it do?
+****************
+
 ``htooldeploy`` is a simple commandline tool for quick & easy installation of
 your slightly more "robust" tools.
 
@@ -69,6 +72,6 @@ Limitations
 Contact
 *******
 If you do decide to use ``htooldeploy``, and have any questions about how to
-use it, any bugs to report, or feature requests, please feel free to email me
-at james@jamesrobinsonvfx.com, or head over to the `Git Repository.
+use it, any bugs to report, or feature requests, please feel free to head over
+to the `Git Repository.
 <https://github.com/jamesrobinsonvfx/htooldeploy/tree/master>`_
