@@ -12,7 +12,7 @@ Site-Structured?
     makes it really straightforward to install and develop tools quickly
     in new locations.
 
-.. todo::
+.. note::
     This format would work well even with simple otls. Each one would
     have a docs page...or actually just a help/ in the source/ folder.
 """
