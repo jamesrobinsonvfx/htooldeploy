@@ -1,6 +1,11 @@
 Installing
 ==========
 
+``htooldeploy`` can be cloned with git using the following:
+
+.. code-block:: bash
+
+    git clone https://github.com/jamesrobinsonvfx/htooldeploy.git
 
 It's always good practice to create a `Virtual Environment
 <https://virtualenv.pypa.io/en/latest/>`_ when installing new tools.
