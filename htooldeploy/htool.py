@@ -73,7 +73,7 @@ class HTool(object):
         """Determine if the tool is installable.
 
         A tool is considered installable if its source folder contains
-        one or more "Houdini Site" folders.
+        one or more :ref:`Houdini Site Folders`.
 
         :return: Whether or not the tool can be installed
         :rtype: bool
@@ -121,13 +121,13 @@ class HTool(object):
         """Infer the source directory to copy from.
 
         The user inputs a path to a top level tool repo. Inside the repo
-        there will typically be either a ``source/`` or ``site``
+        there will typically be either a ``source/`` or ``site/``
         directory that contains the folders to copy. This method points
         us to the folder whose contents will actually be copied over or
         referenced (if using the ``--develop`` flag).
 
-        :param repo_convention: Where the "Houdini Site" folders live in
-            the repo, defaults to "source"
+        :param repo_convention: Where the  :ref:`Houdini Site Folders`
+            live in the repo, defaults to "source"
         :type repo_convention: str, optional
         :return: Path to the source site directory
         :rtype: str
@@ -180,7 +180,7 @@ class HTool(object):
     def tool_version(self):
         """Attempt to find the source tool's version.
 
-        If a file in the tool repo's root contains "__version__ = ",
+        If a file in the tool repo's root contains ``__version__ =``
         it will be used as the tool's version in the json package.
 
         :return: Tool version string
@@ -336,7 +336,11 @@ class HTool(object):
         the latest Houdini version. If no ``HOUDINI_USER_PREF_DIR`` has
         been set, look in ``$HOME``.
 
-        :param version: Houdini Major.Minor version to search for,
+        .. seealso ::
+            `hconfig <https://www.sidefx.com/docs/houdini/basics/
+            config_env.html>`_
+
+        :param version: Houdini ``MAJOR.MINOR`` version to search for,
             defaults to None
         :type version: float, str, optional
         :return: Path to user preferences directory for the given
@@ -364,7 +368,7 @@ class HTool(object):
     def _latest_houdini_version():
         """Find the latest Houdini version in a user's home directory.
 
-        :return: Highest Houdini ``Major.Minor`` version available
+        :return: Highest Houdini ``MAJOR.MINOR`` version available
         :rtype: float
         """
         home = os.path.expanduser("~")
