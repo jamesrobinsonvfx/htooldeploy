@@ -8,11 +8,13 @@ Tutorial
    tool_structure
    installing_htooldeploy
    development_mode
+   modifying_test_tool
    installing_tool
    conclusion
 
-In the following tutorial, we will look at how to install a tool in Development
-Mode, make a change, then install the tool for real to our home folder.
+In the following tutorial, we will look at how to install a tool in
+:ref:`Development Mode`, make a change, then install the tool for real to our
+home folder.
 
 .. _Test Tool:
 
@@ -27,9 +29,9 @@ dialogs.
 Once we finish the installation, we'll be able to find them here
 
 .. image:: images/test_tool_shelf.png
-   :alt: Test Tool shelf
+   :alt: :ref:`Test Tool` shelf
 .. image:: images/test_tool_otl_tab_menu.png
-   :alt: Tab menu showing the Test Tool otl
+   :alt: Tab menu showing the :ref:`Test Tool` otl
 
 All it does is:
 
@@ -38,5 +40,5 @@ All it does is:
 
 .. seealso::
    `Examples folder on GitHub <https://github.com/jamesrobinsonvfx/
-   htooldeploy/tree/master/examples/test_tool>`_
+   htooldeploy-test_tool>`_
 

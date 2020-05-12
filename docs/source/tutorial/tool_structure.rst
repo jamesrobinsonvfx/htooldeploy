@@ -1,8 +1,5 @@
 Test Tool Structure
 ===================
-Inside the ``Examples`` directory, there is a test tool repo structure.
-We will use it in this tutorial to explain tool structure and how to
-install quickly using ``htooldeploy``.
 
 The :ref:`Test Tool` hierarchy is as follows::
 
@@ -23,7 +20,7 @@ source/
 The ``source/`` directory is the most important part of structuring the tool's
 repository. Its directories should mimic the ones found in ``$HFS/houdini``.
 A list of common folders currently recognized by ``htooldeploy`` can be found
-at :ref:`Houdini Site Folders`.
+in :ref:`Houdini Site Folders`.
 
 .. seealso::
     `Configuring Houdini <https://www.sidefx.com/docs/houdini/basics/
@@ -34,8 +31,8 @@ _version
 ^^^^^^^^
 ``_version`` is an optional file. It's useful to have when working in
 :ref:`Development Mode`, as it will automatically add the version string to the
-Houdini Package JSON file. No harm if it's not there though. It should have a
-the following (whitespace/tabbing is flexible, as long as it's close).
+Houdini Package JSON file. No harm if it's not there though. It should have the
+following string (whitespace/tabbing is flexible, as long as it's close).
 
 .. code-block:: python
 
@@ -50,7 +47,8 @@ Tools
 ^^^^^
 
 If we look at the **Type Properties** of the :ref:`Test Tool` hda, we can see that
-it depends on some external Python library for its Event Handler scripts.
+it depends on some external Python library for its `Event Handler <https://www.
+sidefx.com/docs/houdini/hom/locations.html#asset_events>`_ scripts.
 
 .. image:: images/typeproperties_oncreated.png
    :alt: Type Properties, OnCreated script
