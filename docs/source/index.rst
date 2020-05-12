@@ -6,6 +6,7 @@ Welcome to Houdini Tool Deploy's documentation!
    :caption: Contents:
 
    intro
+   installing
    commandline
    examples
    tutorial
