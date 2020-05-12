@@ -13,8 +13,8 @@ Install a tool to your Houdini User Preferences Folder in Development Mode
 
     htooldeploy --develop ~/dev/test_tool
 
-Test an Installation
-********************
+Test an Installation in the Current Directory
+*********************************************
 ::
 
     cd project_folder
