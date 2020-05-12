@@ -1,5 +1,5 @@
-Usage
-=====
+Command Line Usage
+==================
 
 .. argparse::
     :ref: htooldeploy.__main__.build_argument_parser
