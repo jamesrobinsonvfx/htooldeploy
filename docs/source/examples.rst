@@ -7,8 +7,8 @@ Install a tool to your Houdini User Preferences folder (Home)
 
     htooldeploy ~/dev/test_tool
 
-Install a tool to you Houdini User Preferences Folder in Development Mode
-*************************************************************************
+Install a tool to your Houdini User Preferences Folder in Development Mode
+**************************************************************************
 ::
 
     htooldeploy --develop ~/dev/test_tool
