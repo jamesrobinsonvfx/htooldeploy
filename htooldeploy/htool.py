@@ -20,6 +20,7 @@ import json
 import logging
 import os
 import re
+import shutil
 import sys
 
 from distutils.dir_util import copy_tree
@@ -243,6 +244,16 @@ class HTool(object):
             logger.info("Copying {0} to {1}".format(source, target))
             if not self.dry_run:
                 copy_tree(source, target)
+
+        if self.cleanup:
+            try:
+                logger.info("Removing {0}".format(self.source))
+                if not self.dry_run:
+                    shutil.rmtree(self.source)
+            except OSError:
+                logger.warning(
+                    "Unable to clean up {0}".format(self.source)
+                )
 
         return True
 
