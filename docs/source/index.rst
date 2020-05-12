@@ -5,11 +5,11 @@ Welcome to Houdini Tool Deploy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   intro
+   intro/index
    installing
    commandline
    examples
-   tutorial
+   tutorial/index
    htooldeploy
 
 
