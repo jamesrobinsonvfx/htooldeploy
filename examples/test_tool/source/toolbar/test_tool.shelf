@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shelfDocument>
+  <!-- This file contains definitions of shelves, toolbars, and tools.
+ It should not be hand-edited when it is being used by the application.
+ Note, that two definitions of the same element are not allowed in
+ a single file. -->
+
+  <toolshelf name="test_tool_shelf" label="Test Tool">
+    <memberTool name="test_tool_1"/>
+    <memberTool name="test_tool_2"/>
+    <memberTool name="test_tool_3"/>
+    <memberTool name="test_tool_rubbertoy"/>
+  </toolshelf>
+
+  <tool name="test_tool_1" label="Test Tool 1" icon="SOP_python">
+    <script scriptType="python"><![CDATA[from test_tool.tools import tool_1
+tool_1("First tool!")]]></script>
+  </tool>
+
+  <tool name="test_tool_2" label="Test Tool 2" icon="SOP_python">
+    <script scriptType="python"><![CDATA[from test_tool.tools import tool_2
+tool_2("Second Tool!")]]></script>
+  </tool>
+
+  <tool name="test_tool_3" label="Test Tool 3" icon="SOP_python">
+    <script scriptType="python"><![CDATA[from test_tool.tools import tool_3
+tool_3("Third tool!")]]></script>
+  </tool>
+</shelfDocument>
