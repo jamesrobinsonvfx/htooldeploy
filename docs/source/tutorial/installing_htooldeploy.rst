@@ -50,3 +50,10 @@ can run the following ::
 
     chmod +x docs.sh
     ./docs.sh
+
+.. note::
+   Make sure to run the following if you don't have ``sphinx`` installed.
+
+.. code-block:: bash
+
+    pip install -r requirements.txt
