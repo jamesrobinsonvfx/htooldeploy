@@ -28,6 +28,9 @@ setup(
         "Programming Language :: Python :: 2.7",
         "License :: OSI approved :: MIT License",
         "Operating System :: OS Independent",
+        "Development Status :: 4 - Beta"
     ],
-    python_requires=">=2.7,<=3.0"
+    python_requires=">=2.7,<=3.0",
+    keywords=["houdini"],
+    license="MIT"
 )
