@@ -12,7 +12,7 @@ you've got several directories to keep track of.
 Instead of copying the source files to their destination like a normal install,
 ``htooldeploy`` takes advantage of `Houdini Packages <https://www.sidefx.com/
 docs/houdini/ref/plugins.html>`_. A JSON file is added to the installation
-location's ``packages/`` directory, and appends the working tool source to the
+location's ``packages/`` directory, and adds the working tool source to the
 ``HOUDINI_PATH``. This allows you to continue working with the tool in your dev
 space, while changes are still picked up by the project, or your home folder,
 hsite or wherever you decided to install the tool.

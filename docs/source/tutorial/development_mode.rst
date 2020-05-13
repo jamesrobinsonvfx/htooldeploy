@@ -57,14 +57,15 @@ We can inspect the package with any text editor::
 
     vim ~/houdini18.0/packages/htooldeploy-test_tool-0.0.1.json
 
+.. note::
+   ``:q`` then ``enter`` will return you to the commandline.
+
 .. code-block:: json
 
     {
         "path": "/Users/james/dev/htooldeploy-test_tool/source"
     }
 
-.. note::
-   ``:q`` then ``enter`` will return you to the commandline.
 
 ``htooldeploy`` added a super simple Houdini Package that adds our tool's source
 in its dev space to ``HOUDINI_PATH``. Since this package lives in our User
@@ -72,6 +73,34 @@ Preferences, it is sure to get picked up by Houdini on the next launch.
 
 Since the package is just pointing to the dev location, we can continue to
 easily make tweaks to the source, and push/pull changes using Git.
+
+OTL Scan Path
+*************
+It's possible that in some setups, OTLs/HDAs are being loaded explicitly using
+the ``HOUDINI_OTLSCAN_PATH`` variable. This can cause issues when installing
+in :ref:`Development Mode`. If you find that everything but your otls are
+showing up, try running the ``--develop`` flag with the optional argument
+``--append-otlscan`` This will modify the Houdini Package to also append
+``otls/`` (and/or ``hda/`` if you're using that convention) to the
+``HOUDINI_OTLSCAN_PATH``.
+
+.. code-block:: bash
+
+   htooldeploy --develop --append-otlscan ~/dev/htooldeploy-test_tool
+
+.. code-block:: json
+
+    {
+        "path": "/Users/james/dev/htooldeploy-test_tool/source",
+        "env": [
+            {
+                "HOUDINI_OTLSCAN_PATH": {
+                    "value": "/Users/james/deb/htooldeploy-test_tool/source/otls",
+                    "method": "append"
+                }
+            }
+        ]
+    }
 
 Destination
 ^^^^^^^^^^^
