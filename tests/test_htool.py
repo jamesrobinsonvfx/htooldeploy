@@ -8,7 +8,8 @@ import tempfile
 import unittest
 import sys
 
-import htooldeploy.htool
+# import htooldeploy.htool
+from htooldeploy.htool import HTool
 
 
 if "darwin" not in sys.platform:
@@ -21,78 +22,76 @@ TEST_TOOL_REPO = os.path.join(TEMP_DIR, "tool_repo")
 
 class TestHtool(unittest.TestCase):
     """Unit tests"""
+
     @classmethod
     def setUpClass(cls):
-        try:
+        if os.path.isdir(TEST_PROJECT):
             shutil.rmtree(TEST_PROJECT)
+        if os.path.isdir(TEST_TOOL_REPO):
             shutil.rmtree(TEST_TOOL_REPO)
-        except OSError:
-            pass
 
+    def setUp(self):
+        # Only create some, so --force can be tested
+        print "\n"
         dirs = ["otls", "toolbar"]
         for dir_ in dirs:
+            dirpath = os.path.join(TEST_PROJECT, dir_)
             try:
-                os.makedirs(os.path.join(TEST_PROJECT, dir_))
+                os.makedirs(dirpath)
+                print "Created ", dirpath
             except OSError:
                 continue
 
         tool_source = os.path.join(os.path.abspath("."), "tests", "test_tool")
-        print "Copying test_tool repo from {0} to {1}".format(
-            tool_source, TEST_TOOL_REPO)
         shutil.copytree(tool_source, TEST_TOOL_REPO)
-
-    @classmethod
-    def tearDownClass(cls):
-        print("Removing test_project from temp")
-        shutil.rmtree(TEST_PROJECT)
-        print("Removing test_tool_repo from temp")
-        shutil.rmtree(TEST_TOOL_REPO)
-
-    def setUp(self):
-        self.test_project = TEST_PROJECT
-        self.test_tool_repo = TEST_TOOL_REPO
-        self.htool = htooldeploy.htool.HTool(
-            source_tool_repo=self.test_tool_repo,
-            install_destination=self.test_project,
-            verbosity=3
-        )
+        print "Copied {0} to {1}".format(tool_source, TEST_TOOL_REPO)
 
     def tearDown(self):
-        dirs = ["otls", "toolbar", "python2.7libs", "packages"]
-        for dir_ in dirs:
-            dirpath = os.path.join(TEST_PROJECT, dir_)
-            if not os.path.isdir(dirpath):
-                break
-            for item in os.listdir(dirpath):
-                itempath = os.path.join(dirpath, item)
-                print("Removing {0}".format(itempath))
-                try:
-                    shutil.rmtree(itempath)
-                except OSError:
-                    continue
+        if os.path.isdir(TEST_PROJECT):
+            print "Removing Test Project"
+            shutil.rmtree(TEST_PROJECT)
+        # if os.path.isdir(TEST_TOOL_REPO):
+            # print "Removing Test Tool Repo"
+            # shutil.rmtree(TEST_TOOL_REPO)
 
     def test_user_prefs(self):
         """Something is returned for User Preferences"""
-        self.assertIsNotNone(self.htool._find_user_prefs_dir())
+        ht = HTool(
+            source_tool_repo=TEST_TOOL_REPO,
+            install_destination=TEST_PROJECT
+        )
+        self.assertIsNotNone(ht._find_user_prefs_dir())
 
     def test_installable(self):
         """Test Tool is always an installable tool"""
-        self.assertTrue(self.htool.installable())
+        ht = HTool(
+            source_tool_repo=TEST_TOOL_REPO,
+            install_destination=TEST_PROJECT
+        )
+        self.assertTrue(ht.installable())
 
     def test_install_develop_mode(self):
         """Add a package to project packages"""
         package_path = os.path.join(
             TEST_PROJECT, "packages", "tool_repo-0.0.1.json"
         )
-        self.htool.develop = True
-        self.htool.force = True
-        self.assertTrue(self.htool.install())
+        ht = HTool(
+            source_tool_repo=TEST_TOOL_REPO,
+            install_destination=TEST_PROJECT,
+            develop=True,
+            force=True
+        )
+        self.assertTrue(ht.install())
         self.assertTrue(os.path.isfile(package_path))
 
     def test_install(self):
         """A normal installation"""
-        self.htool.force = True
-        self.assertTrue(self.htool.install())
+        ht = HTool(
+            source_tool_repo=TEST_TOOL_REPO,
+            install_destination=TEST_PROJECT,
+            force=True
+        )
+        self.assertTrue(ht.install())
         project_result = {
             "python2.7libs": "test_tool",
             "otls": "example_testtool.hda",
@@ -103,3 +102,22 @@ class TestHtool(unittest.TestCase):
             subdirpath = os.path.join(dirpath, subdir)
             self.assertTrue(os.path.exists(dirpath))
             self.assertTrue(os.path.exists(subdirpath))
+
+    # def test_tool_cleanup(self):
+    #     """Remove source tool repo after successful install"""
+    #     print("TESTING")
+    #     self.htool.force = True
+    #     self.htool.cleanup = True
+    #     self.assertTrue(self.htool.install())
+    #     self.assertFalse(os.path.exists(TEST_TOOL_REPO))
+
+    def test_z_another_install(self):
+        """Another normal installation"""
+        ht = HTool(
+            source_tool_repo=TEST_TOOL_REPO,
+            install_destination=TEST_PROJECT,
+            force=True
+        )
+        self.assertTrue(ht.install())
+
+# Multiple installs in the same test suite cause failure....
