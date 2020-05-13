@@ -1,2 +1,2 @@
 python setup.py sdist bdist_wheel
-twine upload/*
+twine upload dist/*
