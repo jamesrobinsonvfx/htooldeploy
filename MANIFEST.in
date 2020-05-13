@@ -1,7 +1,7 @@
 global-exclude *.py[cod]
 include *.md
 include *.sh
-recursive-include docs/*
-recursive-include test/*
+recursive-include docs *
+recursive-include tests *
 include LICENSE
 include requirements.txt
