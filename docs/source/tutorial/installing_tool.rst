@@ -66,6 +66,11 @@ So far, we have left the installation target blank. Without a value,
 ``htooldeploy`` will always default to the highest Houdini Version in your
 Houdini User Preferences folder.
 
+.. note::
+   Try using the ``--hou-version`` flag to specify a different ``MAJOR.MINOR``
+   version, ie. ``--hou-version 17.5`` if you need to install to an earlier
+   version.
+
 We can also install anywhere on our ``HOUDINI_PATH``. For this example, I have
 a project called **coolproject**. Inside, there there is a ``houdini`` folder,
 which has all the typical Houdini folders you'd expect for a shot. Let's
