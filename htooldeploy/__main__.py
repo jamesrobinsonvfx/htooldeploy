@@ -60,7 +60,6 @@ def build_argument_parser():
 
     parser.add_argument(
         "source_tool_repo",
-        # metavar="PATH",
         type=str,
         action="store",
         help=(
@@ -70,7 +69,6 @@ def build_argument_parser():
     )
     parser.add_argument(
         "install_destination",
-        # metavar="PATH",
         type=str,
         action="store",
         nargs="?",
