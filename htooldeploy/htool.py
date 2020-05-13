@@ -44,28 +44,60 @@ class HTool(object):
     """A basic Houdini Tool object, capable of verifying and installing
     itself.
     """
+    # pylint: disable=too-many-instance-attributes,too-many-arguments
 
-    def __init__(self, **kwargs):
+    def __init__(
+            self,
+            source_tool_repo=None,
+            install_destination=None,
+            develop=False,
+            force=False,
+            cleanup=False,
+            hou_version=None,
+            verbosity=3,
+            dry_run=False
+    ):
         """Constructor for HTool object.
-        Arguments from the command line. For more info, see
-        :mod:`htooldeploy.__main__ or ::
-            htooldeploy --help
 
-        :param kwargs: Commandline arguments
-        :type kwargs: dict
+        :param source_tool_repo: Tool repository root, defaults to None
+        :type source_tool_repo: str
+        :param install_destination: Install directory, defaults to None
+        :type install_destination: str, optional
+        :param develop: :ref:`Development Mode`, defaults to False
+        :type develop: bool, optional
+        :param force: Create missing target dirs, defaults to False
+        :type force: bool, optional
+        :param cleanup: Remove source repository root after install,
+            defaults to False
+        :type cleanup: bool, optional
+        :param hou_version: Houdini ``MAJOR.MINOR`` version to install
+            to in User Preferences, defaults to None
+        :type hou_version: float or str, optional
+        :param verbosity: Console output level from 0-3, 3 being the
+            most verbose, defaults to 3
+        :type verbosity: int, optional
+        :param dry_run: Execute all selected functions without creating
+            or removing directories, defaults to False
+        :type dry_run: bool, optional
         """
+
         super(HTool, self).__init__()
 
-        self.source = kwargs.get("source_tool_repo", None)
-        self.target = kwargs.get("install_destination", None)
-        self.develop = kwargs.get("develop", False)
-        self.force = kwargs.get("force", False)
-        self.cleanup = kwargs.get("cleanup", False)
-        self.hou_version = kwargs.get("hou_version", None)
-        self.verbosity = kwargs.get("verbosity", 0)
-        self.dry_run = kwargs.get("dry_run", False)
+        self.source_repo = source_tool_repo
+        self._install_destination = install_destination
+        self.develop = develop
+        self.force = force
+        self.cleanup = cleanup
+        # self.hou_version = hou_version
+        self.verbosity = verbosity
+        self.dry_run = dry_run
 
-        if self.dry_run:
+        self._user_prefs_dir = self._find_user_prefs_dir(
+            # version=self.hou_version
+            version=hou_version
+        )
+
+        if dry_run:
             logger.log(100, "{0}Dry Run{0}".format("-"*24))
         self.installable()
 
@@ -78,8 +110,8 @@ class HTool(object):
         :return: Whether or not the tool can be installed
         :rtype: bool
         """
-        for dir_ in os.listdir(self.source_path):
-            dir_path = os.path.join(self.source_path, dir_)
+        for dir_ in os.listdir(self.source_path()):
+            dir_path = os.path.join(self.source_path(), dir_)
             if dir_ in HOUDINI_SITE_DIRS and os.path.isdir(dir_path):
                 logger.info("{0} is installable".format(self.tool_name()))
                 return True
@@ -101,10 +133,8 @@ class HTool(object):
         """
         success = False
 
-        source_path = self.source_path
-        target_path = self.target_path()
-        logger.debug("Tool source: {0}".format(source_path))
-        logger.debug("Install path: {0}".format(target_path))
+        logger.debug("Tool source: {0}".format(self.source_path()))
+        logger.debug("Install path: {0}".format(self.target_path()))
 
         if self.develop:
             logger.info("Installing in Development Mode")
@@ -116,7 +146,6 @@ class HTool(object):
             success = self._copy_source_to_target()
         return success
 
-    @property
     def source_path(self, repo_convention="source"):
         """Infer the source directory to copy from.
 
@@ -126,19 +155,20 @@ class HTool(object):
         us to the folder whose contents will actually be copied over or
         referenced (if using the ``--develop`` flag).
 
+        :source_dir: User-supplied source directory
+        :type source_dir: `str`
         :param repo_convention: Where the  :ref:`Houdini Site Folders`
-            live in the repo, defaults to "source"
+            live in the repo, defaults to "source" for now.
         :type repo_convention: str, optional
         :return: Path to the source site directory
         :rtype: str
         """
         try:
-            source_dir = os.path.join(self.source, repo_convention)
+            source_dir = os.path.join(self.source_repo, repo_convention)
         except AttributeError:
             error_msg = ("No tool repo supplied. Aborting.")
             logger.error(error_msg)
             sys.exit()
-            # return None
         if not os.path.isdir(source_dir):
             error_msg = (
                 "No {0} directory found in tool {1}. Aborting."
@@ -160,9 +190,9 @@ class HTool(object):
         :return: Directory to copy to
         :rtype: str
         """
-        target_dir = self.target
+        target_dir = self._install_destination
         if not target_dir:
-            target_dir = self._user_prefs_dir(version=self.hou_version)
+            target_dir = self._user_prefs_dir
         target_dir = os.path.abspath(target_dir)
         if self.develop:
             target_dir = os.path.join(target_dir, "packages")
@@ -175,7 +205,7 @@ class HTool(object):
         :return: Tool name
         :rtype: str
         """
-        return os.path.basename(self.source)
+        return os.path.basename(self.source_repo)
 
     def tool_version(self):
         """Attempt to find the source tool's version.
@@ -190,7 +220,7 @@ class HTool(object):
         logger.debug(
             "Searching for version string for {0}".format(self.tool_name())
         )
-        root = self.source
+        root = self.source_repo
         root_files = [
             x for x in os.listdir(root)
             if os.path.isfile(os.path.join(root, x))
@@ -223,16 +253,13 @@ class HTool(object):
 
         :raises Exception: Missing target directories, no force flag.
         """
-        source_path = self.source_path
-        target_path = self.target_path()
-
         source_dirs = [
-            x for x in os.listdir(source_path)
+            x for x in os.listdir(self.source_path())
             if not x.startswith(".") and x in HOUDINI_SITE_DIRS
         ]
         missing_dirs = [
             x for x in source_dirs
-            if x not in os.listdir(target_path)
+            if x not in os.listdir(self.target_path())
         ]
         if missing_dirs and not self.force:
             error_msg = (
@@ -242,23 +269,23 @@ class HTool(object):
                     "\n\t".join(["{0}/".format(x) for x in missing_dirs]))
             )
             logger.error(error_msg)
-            return
+            return False
 
         for dir_name in source_dirs:
-            source = os.path.join(source_path, dir_name)
-            target = os.path.join(target_path, dir_name)
+            source = os.path.join(self.source_path(), dir_name)
+            target = os.path.join(self.target_path(), dir_name)
             logger.info("Copying {0} to {1}".format(source, target))
             if not self.dry_run:
                 copy_tree(source, target)
 
         if self.cleanup:
             try:
-                logger.info("Removing {0}".format(self.source))
+                logger.info("Removing {0}".format(self.source_repo))
                 if not self.dry_run:
-                    shutil.rmtree(self.source)
+                    shutil.rmtree(self.source_repo)
             except OSError:
                 logger.warning(
-                    "Unable to clean up {0}".format(self.source)
+                    "Unable to clean up {0}".format(self.source_repo)
                 )
 
         return True
@@ -275,9 +302,6 @@ class HTool(object):
         """
         success = False
 
-        source_path = self.source_path
-        target_path = self.target_path()
-
         package_name = "{0}.json".format(self.tool_name())
         tool_version = self.tool_version()
         if tool_version:
@@ -285,7 +309,7 @@ class HTool(object):
                 self.tool_name(),
                 tool_version
             )
-        package_file = os.path.join(target_path, package_name)
+        package_file = os.path.join(self.target_path(), package_name)
         if os.path.isfile(package_file) and not self.force:
             logger.warning("A Houdini Package with this name already exists.")
             input_ = None
@@ -299,7 +323,7 @@ class HTool(object):
                     "with the \"--force\" flag"
                 )
                 return False
-        elif not os.path.isdir(target_path):
+        elif not os.path.isdir(self.target_path()):
             if not self.force:
                 msg = (
                     "Missing packages directory in installation target "
@@ -309,11 +333,12 @@ class HTool(object):
                 return False
             else:
                 logger.debug(
-                    "Creating packages directory {0}".format(target_path)
+                    "Creating packages directory {0}".format(
+                        self.target_path())
                 )
                 if not self.dry_run:
-                    os.makedirs(target_path)
-        package_entry = {"path": source_path}
+                    os.makedirs(self.target_path())
+        package_entry = {"path": self.source_path()}
         if self.dry_run:
             logger.debug("Package contents: {0}".format(package_entry))
             return True
@@ -330,7 +355,7 @@ class HTool(object):
 
         return success
 
-    def _user_prefs_dir(self, version=None):
+    def _find_user_prefs_dir(self, version=None):
         """Find the user's Houdini Preferences directory.
 
         Use the version override if provided, otherwise search for
