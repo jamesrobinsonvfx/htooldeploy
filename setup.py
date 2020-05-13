@@ -4,6 +4,9 @@ import sys
 
 from setuptools import setup
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 sys.path.append(os.path.abspath("."))
 
 setup(
@@ -14,5 +17,17 @@ setup(
         "console_scripts": [
             "htooldeploy = htooldeploy.__main__:main"
         ]
-    }
+    },
+    author="James Robinson",
+    author_email="james@jamesrobinsonvfx.com",
+    description="Command line application for installing Houdini tools.",
+    long_description=long_description,
+    long_description_content_type="test/markdow",
+    url="https://github.com/jamesrobinsonvfx/htooldeploy",
+    classifiers=[
+        "Programming Language :: Python :: 2.7",
+        "License :: OSI approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires=">=2.7,<=3.0"
 )
