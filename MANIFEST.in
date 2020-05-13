@@ -4,4 +4,5 @@ recursive-include docs *
 recursive-include tests *
 include LICENSE
 include requirements.txt
+exclude publish.sh
 global-exclude *.py[cod]
