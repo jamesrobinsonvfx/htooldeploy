@@ -1,5 +1,5 @@
-Houdini Tool Deploy's 0.4.0
-===========================
+Houdini Tool Deploy 0.3.0
+==========================
 
 .. toctree::
    :maxdepth: 2
