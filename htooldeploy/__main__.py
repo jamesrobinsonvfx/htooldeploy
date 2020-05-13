@@ -86,6 +86,15 @@ def build_argument_parser():
             "the target location to modify HOUDINI_PATH"
         )
     )
+    parser.add_argument(
+        "-a",
+        "--append-otlscan",
+        action="store_true",
+        help=(
+            "When installing in Development Mode, explicitly append "
+            "'otls' directories to HOUDINI_OTLSCAN_PATH"
+        )
+    )
     mutual_exlusions.add_argument(
         "-c",
         "--cleanup",

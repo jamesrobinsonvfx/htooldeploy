@@ -51,6 +51,7 @@ class HTool(object):
             source_tool_repo=None,
             install_destination=None,
             develop=False,
+            append_otlscan=False,
             force=False,
             cleanup=False,
             hou_version=None,
@@ -86,6 +87,7 @@ class HTool(object):
         self.source_repo = source_tool_repo
         self._install_destination = install_destination
         self.develop = develop
+        self.append_otlscan = append_otlscan
         self.force = force
         self.cleanup = cleanup
         self.verbosity = verbosity
@@ -337,6 +339,22 @@ class HTool(object):
                 if not self.dry_run:
                     os.makedirs(self.target_path())
         package_entry = {"path": self.source_path()}
+        if self.append_otlscan:
+            logger.debug("Appending to HOUDINI_OTLSCAN_PATH")
+            otls_dir = os.path.join(self.source_path(), "otls")
+            hda_dir = os.path.join(self.source_path(), "hda")
+            append_dirs = [x for x in [otls_dir, hda_dir] if os.path.isdir(x)]
+            if append_dirs:
+                otlscan = [
+                    {
+                        "HOUDINI_OTLSCAN_PATH": {
+                            "value": append_dirs,
+                            "method": "append"
+                        }
+                    }
+                ]
+                package_entry["env"] = otlscan
+
         if self.dry_run:
             logger.debug("Package contents: {0}".format(package_entry))
             return True
