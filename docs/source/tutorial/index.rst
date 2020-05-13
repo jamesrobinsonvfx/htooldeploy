@@ -6,7 +6,7 @@ Tutorial
 
    getting_started
    tool_structure
-   ../installing
+   installing_htooldeploy
    development_mode
    modifying_test_tool
    installing_tool
