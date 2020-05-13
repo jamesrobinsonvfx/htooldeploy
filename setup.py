@@ -34,7 +34,7 @@ setup(
     keywords=["houdini"],
     license="MIT",
     project_urls={
-        "Documentatio"n: "https://htooldeploy.readthedocs.io/en/latest/",
+        "Documentation": "https://htooldeploy.readthedocs.io/en/latest/",
         "GitHub": "https://github.com/jamesrobinsonvfx/htooldeploy"
     }
 )
