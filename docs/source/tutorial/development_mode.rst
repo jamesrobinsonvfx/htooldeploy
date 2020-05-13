@@ -63,6 +63,9 @@ We can inspect the package with any text editor::
         "path": "/Users/james/dev/htooldeploy-test_tool/source"
     }
 
+.. note::
+   ``:q`` then ``enter`` will return you to the commandline.
+
 ``htooldeploy`` added a super simple Houdini Package that adds our tool's source
 in its dev space to ``HOUDINI_PATH``. Since this package lives in our User
 Preferences, it is sure to get picked up by Houdini on the next launch.
