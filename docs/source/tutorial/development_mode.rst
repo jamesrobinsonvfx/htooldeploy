@@ -4,7 +4,7 @@ Install :ref:`Test Tool` Using :ref:`Development Mode`
 Now that we're all set with the example tool repo and understand its
 structure, let's install it!
 
-If you try runnning ``htooldeploy`` with the ``--help`` flag, you can see the
+If you try running ``htooldeploy`` with the ``--help`` flag, you can see the
 help card.
 ::
 
