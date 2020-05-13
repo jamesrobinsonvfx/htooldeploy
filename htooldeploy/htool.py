@@ -84,7 +84,7 @@ class HTool(object):
 
         super(HTool, self).__init__()
 
-        self.source_repo = source_tool_repo
+        self.source_repo = self._strip_trailing_slash(source_tool_repo)
         self._install_destination = install_destination
         self.develop = develop
         self.append_otlscan = append_otlscan
@@ -404,6 +404,19 @@ class HTool(object):
 
         logger.debug("User Preferences directory: {0}".format(user_prefs))
         return user_prefs
+
+    @staticmethod
+    def _strip_trailing_slash(path):
+        """Strip trailing slash.
+
+        :param path: Path to directory
+        :type path: str
+        :return: Path without the trailing slash
+        :rtype: str
+        """
+        if path[-1] == "/" or path[-1] == "\\":
+            path = path[:-1]
+        return path
 
     @staticmethod
     def _latest_houdini_version():
