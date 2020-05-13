@@ -88,12 +88,10 @@ class HTool(object):
         self.develop = develop
         self.force = force
         self.cleanup = cleanup
-        # self.hou_version = hou_version
         self.verbosity = verbosity
         self.dry_run = dry_run
 
         self._user_prefs_dir = self._find_user_prefs_dir(
-            # version=self.hou_version
             version=hou_version
         )
 
@@ -346,7 +344,6 @@ class HTool(object):
         with open(package_file, "w") as file_:
             json.dump(package_entry, file_, indent=4)
 
-        # Read it back
         with open(package_file, "r") as file_:
             data = json.load(file_)
             if data == package_entry:
@@ -388,7 +385,7 @@ class HTool(object):
             sys.exit()
 
         logger.debug("User Preferences directory: {0}".format(user_prefs))
-        return user_prefs  # if os.path.isdir(user_prefs) else None
+        return user_prefs
 
     @staticmethod
     def _latest_houdini_version():
