@@ -373,13 +373,13 @@ class HTool(object):
         user_prefs = os.getenv("HOUDINI_USER_PREF_DIR")
         version = version if version else self._latest_houdini_version()
         logger.debug("Searching Houdini version: {0}".format(version))
-        if "__HVER__" in user_prefs:
-            user_prefs = user_prefs.replace("__HVER__", version)
-        elif not user_prefs:
+        if not user_prefs:
             user_prefs = os.path.join(
                 os.path.expanduser("~"),
                 "houdini{0}".format(self._latest_houdini_version())
             )
+        elif "__HVER__" in user_prefs:
+            user_prefs = user_prefs.replace("__HVER__", version)
         if not os.path.isdir(user_prefs):
             logger.error("{0} does not exist. Aborting.".format(user_prefs))
             sys.exit()
