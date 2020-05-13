@@ -57,7 +57,7 @@ We can inspect the package with any text editor::
 
     vim ~/houdini18.0/packages/htooldeploy-test_tool-0.0.1.json
 
-.. note::
+.. tip::
    ``:q`` then ``enter`` will return you to the commandline.
 
 .. code-block:: json
@@ -101,6 +101,10 @@ showing up, try running the ``--develop`` flag with the optional argument
             }
         ]
     }
+
+.. note::
+   If the installation failed, check the output. If you're missing the
+   ``packages/`` directory, either create it, or try using the ``--force`` flag.
 
 Destination
 ^^^^^^^^^^^
