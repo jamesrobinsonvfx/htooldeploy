@@ -1,0 +1,7 @@
+global-exclude *.py[cod]
+include *.md
+include *.sh
+recursive-include docs/*
+recursive-include test/*
+include LICENSE
+include requirements.txt
