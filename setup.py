@@ -23,11 +23,11 @@ setup(
     author_email="james@jamesrobinsonvfx.com",
     description="Command line application for installing Houdini tools.",
     long_description=long_description,
-    long_description_content_type="test/markdow",
+    long_description_content_type="text/markdown",
     url="https://github.com/jamesrobinsonvfx/htooldeploy",
     classifiers=[
         "Programming Language :: Python :: 2.7",
-        "License :: OSI approved :: MIT License",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta"
     ],
