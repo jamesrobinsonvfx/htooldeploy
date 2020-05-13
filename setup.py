@@ -32,5 +32,9 @@ setup(
     ],
     python_requires=">=2.7,<=3.0",
     keywords=["houdini"],
-    license="MIT"
+    license="MIT",
+    project_urls={
+        "Documentatio"n: "https://htooldeploy.readthedocs.io/en/latest/",
+        "GitHub": "https://github.com/jamesrobinsonvfx/htooldeploy"
+    }
 )
