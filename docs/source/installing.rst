@@ -1,43 +1,61 @@
+.. _Installing tooldeploy:
+
 Installing
 ==========
 
-``htooldeploy`` can be cloned with git using the following:
-
-.. code-block:: bash
-
-    git clone https://github.com/jamesrobinsonvfx/htooldeploy.git
-
-It's always good practice to create a `Virtual Environment
-<https://virtualenv.pypa.io/en/latest/>`_ when installing new tools.
+Setting up a Virtual Environment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+It's always a good idea to install new tools into a `Virtual Environment
+<https://virtualenv.pypa.io/en/latest/>`_. Let's create one now.
 
 .. code-block:: bash
 
     cd ~
-    mkdir .virtualenv
-    virtualenv -p /usr/bin/python .virtualenvs htooldeploy
+    virtualenv -p /usr/bin/python .virtualenvs/htooldeploy
+    source .virtualenvs/htooldeploy/bin/activate
 
-Then installation is easy with ``pip``. Navigate to the cloned
-repository. In my case, it is located in ``/Users/james/dev``.
+.. note::
+   I explicity set the Python interpreter using ``-p`` since my system defaults
+   to Python 3.7. Yours may vary.
 
-.. code-block:: bash
+Installation is super easy using ``pip``::
 
-    cd ~/dev/htooldeploy
-    pip install -r .
+    pip install htooldeploy
 
+``htooldeploy`` should now be installed into our virtualenv.
 
-To quickly build and open the docs, use the shell script
+.. note::
+   You can verify this by looking inside the virtual environment's
+   ``site-packages`` directory.
 
-.. code-block:: bash
+   .. code-block:: bash
+
+        ls ~/.virtualenvs/htooldeploy/lib/python2.7/site-packages
+
+Install ``htooldeploy`` from Source
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you would like to install ``htooldeploy`` and continue to edit the source
+code, you can clone the repo and  use the ``install.sh`` script located in the
+cloned repo's root directory. Make the file executable and run it ::
+
+    cd ~/dev
+    git clone https://github.com/jamesrobinsonvfx/htooldeploy.git
+    cd htooldeploy
+    chmod +x install.sh
+    ./install.sh
+
+Build and Launch Documentation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you'd like to build and launch the documentation in your local browser, you
+can run the following ::
 
     chmod +x docs.sh
     ./docs.sh
 
+.. note::
+   Make sure to run the following if you don't have ``sphinx`` installed.
 
-If you plan on editing the source code while using ``htooldeploy``, you
-can ``pip install`` in development mode using the ``install.sh``
-installation shell script.
+    .. code-block:: bash
 
-.. code-block:: bash
-
-    chmod +x install.sh
-    ./install.sh
+        pip install -r requirements.txt
