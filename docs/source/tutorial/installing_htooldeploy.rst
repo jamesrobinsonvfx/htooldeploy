@@ -54,6 +54,6 @@ can run the following ::
 .. note::
    Make sure to run the following if you don't have ``sphinx`` installed.
 
-.. code-block:: bash
+    .. code-block:: bash
 
-    pip install -r requirements.txt
+        pip install -r requirements.txt
