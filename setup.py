@@ -18,6 +18,7 @@ setup(
             "htooldeploy = htooldeploy.__main__:main"
         ]
     },
+    install_requires=[],
     author="James Robinson",
     author_email="james@jamesrobinsonvfx.com",
     description="Command line application for installing Houdini tools.",
