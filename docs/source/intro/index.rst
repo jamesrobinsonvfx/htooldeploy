@@ -7,4 +7,5 @@ Introduction
   overview
   houdini_site_folders
   development_mode
+  template
 
