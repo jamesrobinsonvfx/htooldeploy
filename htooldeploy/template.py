@@ -371,10 +371,3 @@ def template_wizard(template_location):
         "Do you plan on using {0} with Git?".format(tool.name), default="y"
     ).show_prompt().value
     tool.create()
-
-
-if __name__ == "__main__":
-    MOD = __import__("htooldeploy.__main__", fromlist=["log"])
-    LOG = MOD.log(3)
-
-    template_wizard("/tmp")
