@@ -6,18 +6,6 @@ creating the directories with ``htooldeploy`` and the ``--template`` flag. A
 wizard will prompt you for a few details about the project, and create a
 directory structure in the given location.
 
-If you check the ``otls/`` directory, you'll find a couple of shell scripts:
-``bin_to_ascii.sh`` and ``ascii_to_bin.sh``. These are useful for converting
-your hdas between ascii and binary format. ASCII hdas allow for useful diffing
-when using version control like Git.
-
-There is also a basic ``.gitignore`` at the root level, along with
-a ``README.md``.
-
-.. note::
-   Unfortunately, SESI has locked these features to paid licenses of Houdini.
-   Apprentice users are unable to convert hdas.
-
 .. code-block:: bash
 
    cd ~/dev
@@ -36,5 +24,22 @@ you own settings.
     Version  [0.0.1]:
     Will furball_generator need its own Python library? (y/n) [y]:
     Include blank shelf? (y/n) [y]:
+    Do you plan on using furball_generator with Git? (y/n) [y]:
     See log at /tmp/htooldeploy/htooldeploy_1589583158.log for detailed output
     Exiting
+
+Git Option
+**********
+
+If you choose ``y`` at the last line regarding Git, check the ``otls/``
+directory. You'll find a couple of shell scripts: ``bin_to_ascii.sh`` and
+``ascii_to_bin.sh``. These are useful for converting your hdas between ascii
+and binary format. ASCII hdas allow for useful diffing when using version
+control like Git.
+
+There is also a basic ``.gitignore`` at the root level, along with
+a ``README.md``.
+
+.. note::
+   Unfortunately, SESI has locked these features to paid licenses of Houdini.
+   Apprentice users are unable to convert hdas.
