@@ -37,5 +37,6 @@ setup(
     project_urls={
         "Documentation": "https://htooldeploy.readthedocs.io/en/latest/",
         "GitHub": "https://github.com/jamesrobinsonvfx/htooldeploy"
-    }
+    },
+    include_package_data=True
 )
