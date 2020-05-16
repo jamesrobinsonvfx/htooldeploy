@@ -1,23 +1,12 @@
-"""Template
+"""Template Tool Creator
 
 When running ``htooldeploy`` with the ``--template`` flag, the user can
 create a simple tool development structure ready for version control
 and deployment.
-
-htooldeploy --template .
-
 ::
+    htooldeploy --template .
 
-  tool_name/
-    _version
-    README.md
-    source/
-      python2.7libs/
-        test_tool/
-          __init__.py
-      otls/
-      toolbar/
-        test_tool.shelf
+:ref:`Full Template`
 """
 import logging
 import os
@@ -42,7 +31,8 @@ class TemplateTool(object):
             version="0.0.1",
             pythonlib=True,
             shelf=True,
-            git=True
+            help_card=False,
+            git=True,
     ):
         super(TemplateTool, self).__init__()
         self.parent_dir = parent_dir
@@ -51,6 +41,7 @@ class TemplateTool(object):
         self.version = version
         self.pythonlib = pythonlib
         self.shelf = shelf
+        self.help_card = help_card
         self.git = git
 
     def __repr__(self):
@@ -141,9 +132,6 @@ class TemplateTool(object):
     def _tool_title(self):
         """Nice name for the tool.
 
-        .. todo::
-           Add CamelCase conversion
-
         :return: A nice, titled name without underscores
         :rtype: str
         """
@@ -160,7 +148,8 @@ class TemplateTool(object):
         mapping = {
             "shelf": self._create_shelf,
             "pythonlib": self._create_pythonlib,
-            "git": self._git_prep
+            "git": self._git_prep,
+            "help_card": self._houdini_help_dirs
         }
         for key, value in mapping.items():
             if getattr(self, key):
@@ -198,6 +187,20 @@ class TemplateTool(object):
         xmlstr = minidom.parseString(ET.tostring(doc)).toprettyxml(indent="  ")
         with open(shelf_file, "w") as file_:
             file_.write(xmlstr)
+
+    def _houdini_help_dirs(self):
+        """Create Houdini Help directories"""
+        help_dir = self._makedir(
+            os.path.join(
+                self._source_dir(),
+                "help",
+                "nodes"
+            )
+        )
+        categories = ["obj", "sop", "dop", "cop2", "out"]
+        for category in categories:
+            self._makedir(os.path.join(help_dir, category))
+        return help_dir
 
     def root(self):
         """Get the root directory for the tool.
@@ -366,6 +369,9 @@ def template_wizard(template_location):
     ).show_prompt().value
     tool.shelf = WizardLine(
         "Include blank shelf?", default="y"
+    ).show_prompt().value
+    tool.help_card = WizardLine(
+        "Will {0} need its own Houdini Help?".format(tool.name), default="n"
     ).show_prompt().value
     tool.git = WizardLine(
         "Do you plan on using {0} with Git?".format(tool.name), default="y"
