@@ -51,6 +51,7 @@ class TestTemplateTool(unittest.TestCase):
             version="1.1.0",
             pythonlib=True,
             shelf=True,
+            help_card=True,
             git=True
         )
         dirs = [
@@ -60,6 +61,7 @@ class TestTemplateTool(unittest.TestCase):
             "/tmp/washed_out/source/python2.7libs/washed_out",
             "/tmp/washed_out/source/otls",
             "/tmp/washed_out/source/toolbar",
+            "/tmp/washed_out/source/help/nodes"
         ]
         files = [
             "/tmp/washed_out/source/python2.7libs/washed_out/__init__.py",
@@ -70,12 +72,16 @@ class TestTemplateTool(unittest.TestCase):
             "/tmp/washed_out/source/otls/ascii_to_bin.sh",
             "/tmp/washed_out/source/otls/bin_to_ascii.sh"
         ]
+        help_categories = ["obj", "sop", "dop", "cop2", "out"]
+
         template.create()
         for dir_ in dirs:
             self.assertTrue(os.path.isdir(dir_))
         for file_ in files:
-            print file_
-            self.assertTrue(os.path.exists(file_))
+            self.assertTrue(os.path.isfile(file_))
+        for cat in help_categories:
+            dirpath = os.path.join("/tmp/washed_out/source/help/nodes", cat)
+            self.assertTrue(os.path.isdir(dirpath))
 
     def test_sanitized_name(self):
         """Name has no whitespaces or non-word characters"""
