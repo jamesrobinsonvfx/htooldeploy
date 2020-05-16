@@ -6,6 +6,7 @@ import time
 import sys
 
 from .htool import HTool
+from .template import template_wizard
 
 LOG_LEVELS = [logging.ERROR, logging.WARNING, logging.INFO, logging.DEBUG]
 
@@ -131,6 +132,11 @@ def build_argument_parser():
         action="store_true",
         help="Run selected functions without creating or removing files"
     )
+    parser.add_argument(
+        "--template",
+        action="store_true",
+        help="Run the Template Tool wizard at the given path",
+    )
 
     return parser
 
@@ -145,11 +151,15 @@ def main():
     logger.info("Starting htooldeploy")
 
     logger.debug("Arguments are {0}".format(vars(args)))
-    tool = HTool(**vars(args))
-    if tool.install():
-        logger.info("Installation complete")
+    if args.template:
+        template_wizard(args.source_tool_repo)
     else:
-        logger.warning("Installation failed")
+        del args.template
+        tool = HTool(**vars(args))
+        if tool.install():
+            logger.info("Installation complete")
+        else:
+            logger.warning("Installation failed")
 
     logger.log(100, "See log at {0} for detailed output".format(log_file))
     logger.info("Exiting")
