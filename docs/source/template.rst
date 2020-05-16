@@ -24,6 +24,7 @@ you own settings.
     Version  [0.0.1]:
     Will furball_generator need its own Python library? (y/n) [y]:
     Include blank shelf? (y/n) [y]:
+    Will furball_generator need its own Houdini Help? (y/n) [n]:
     Do you plan on using furball_generator with Git? (y/n) [y]:
     See log at /tmp/htooldeploy/htooldeploy_1589583158.log for detailed output
     Exiting
@@ -43,3 +44,30 @@ a ``README.md``.
 .. note::
    Unfortunately, SESI has locked these features to paid licenses of Houdini.
    Apprentice users are unable to convert hdas.
+
+.. _Full Template:
+
+Full template, all options enabled
+**********************************
+::
+
+  tool_name/
+    .gitignore
+    _version
+    README.md
+    source/
+      help/
+        nodes/
+          obj/
+          sop/
+          dop/
+          cop2/
+          out/
+      otls/
+        bin_to_ascii.sh
+        ascii_to_bin.sh
+      python2.7libs/
+        tool_name/
+          __init__.py
+      toolbar/
+        tool_name.shelf

@@ -10,4 +10,12 @@ API Documentation
     :show-inheritance:
     :private-members:
 
+:mod:`~htooldeploy.template`
+----------------------------
+
+.. automodule:: htooldeploy.template
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 

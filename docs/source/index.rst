@@ -9,6 +9,7 @@ Houdini Tool Deploy
    installing
    commandline
    examples
+   template
    tutorial/index
    htooldeploy
 
