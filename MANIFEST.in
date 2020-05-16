@@ -5,4 +5,5 @@ recursive-include tests *
 include LICENSE
 include requirements.txt
 exclude publish.sh
+recursive-include htooldeploy *
 global-exclude *.py[cod]
