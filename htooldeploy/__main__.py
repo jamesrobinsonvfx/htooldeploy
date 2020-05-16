@@ -133,6 +133,7 @@ def build_argument_parser():
         help="Run selected functions without creating or removing files"
     )
     parser.add_argument(
+        "-t",
         "--template",
         action="store_true",
         help="Run the Template Tool wizard at the given path",
