@@ -36,3 +36,9 @@ Install into a Different Version of Houdini
 
     htooldeploy --hou-version 17.5 ~/dev/test_tool
 
+Create a Tool Template in the Current Directory
+***********************************************
+::
+
+    htooldeploy --template .
+
