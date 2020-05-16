@@ -368,7 +368,7 @@ def template_wizard(template_location):
         "Include blank shelf?", default="y"
     ).show_prompt().value
     tool.git = WizardLine(
-        "Do you plan on using {0} with Git?", default="y"
+        "Do you plan on using {0} with Git?".format(tool.name), default="y"
     ).show_prompt().value
     tool.create()
 
